@@ -40,7 +40,7 @@ export default {
         // 函数的返回值为Array类型，返回由当前数组和任何其他项组合而成的新数组。
         // concat()方法并不会更改Array对象本身，其本身并不会添加对应的元素，只有函数的返回值才是添加元素后的新数组
         // 拼接(合并)一个数组
-        matched = [{ path: '/dashboard', meta: { title: 'Dashboard' }}].concat(matched)
+        matched = [{ path: '/dashboard', meta: { title: '首页' }}].concat(matched)
       }
       this.levelList = matched
     }

@@ -30,32 +30,32 @@ export const constantRouterMap = [
     path: '',
     component: Layout,
     redirect: 'dashboard',
+    name: '首页',
     children: [{
       path: 'dashboard',
       component: _import('dashboard/index'),
-      name: 'dashboard',
-      meta: { title: '首页', icon: 'example', noCache: true }
+      name: 'dashboard'
     }]
   },
 
   {
-    path: '/example',
+    path: '/system',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
+    redirect: '/system/user',
+    name: '系统管理',
     meta: { title: '系统管理', icon: 'example' },
     // 嵌套路由
     children: [
       {
-        path: 'table',
+        path: 'user',
         name: '用户管理',
         component: () => import('@/views/system/user/UserList'),
         meta: { title: '用户管理', icon: 'table' }
       },
       {
-        path: 'tree',
+        path: 'role',
         name: '角色管理',
-        component: () => import('@/views/tree/index'),
+        component: () => import('@/views/system/role/RoleList'),
         meta: { title: '角色管理', icon: 'tree' }
       },
       {
