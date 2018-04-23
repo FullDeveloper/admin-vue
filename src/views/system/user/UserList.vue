@@ -5,7 +5,7 @@
       <el-input style="width: 200px;" class="filter-item" placeholder="姓名"/>
 
       <el-select clearable v-model="listQuery.status" placeholder="状态" style="width: 140px" class="filter-item">
-        <el-option v-for="item in statusOptions" :key="item.key" :label="item.value" :value="item.value">
+        <el-option v-for="item in statusOptions" :key="item.key" :label="item.value" :value="item.key">
         </el-option>
       </el-select>
 
@@ -97,7 +97,7 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="性别" prop="sex">
-          <el-select clearable v-model="temp.sex" :value="temp.sex" placeholder="性别" style="width: 140px">
+          <el-select clearable v-model="temp.sex" placeholder="性别" style="width: 140px" class="filter-item">
             <el-option v-for="item in sexOptions" :key="item.key" :label="item.value" :value="item.key">
             </el-option>
           </el-select>
@@ -188,7 +188,6 @@
         this.resetTemp()
         this.dialogStatus = 'create'
         this.dialogFormVisible = true
-        this.temp.sex = '1'
         this.$nextTick(() => {
           this.$refs['dataForm'].clearValidate()
         })
