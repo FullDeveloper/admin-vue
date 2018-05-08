@@ -54,40 +54,40 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="模块名称" prop="moduleName">
-              <el-input type="text" v-model="temp.moduleName"></el-input>
+              <el-input type="text" v-model="temp.moduleName" placeholder="例如：admin"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
             <el-form-item label="压缩包名" prop="zipName">
-              <el-input type="text" v-model="temp.zipName"></el-input>
+              <el-input type="text" v-model="temp.zipName" placeholder="例如：code"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
           <el-col :span="12">
-            <el-form-item label="表名前缀" prop="tablePreName">
-              <el-input type="text" v-model="temp.tablePreName"></el-input>
+            <el-form-item label="表名前缀" prop="tablePrefixName">
+              <el-input type="text" v-model="temp.tablePrefixName" placeholder="例如：sys_"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
             <el-form-item label="包名" prop="packageName">
-              <el-input v-model="temp.packageName"></el-input>
+              <el-input v-model="temp.packageName" placeholder="例如：com.template.provider.admin"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="作者" prop="author">
-              <el-input type="text" v-model="temp.author"></el-input>
+              <el-input type="text" v-model="temp.author" placeholder="例如：ZhouRunBin"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
             <el-form-item label="邮箱" prop="email">
-              <el-input v-model="temp.email"></el-input>
+              <el-input v-model="temp.email" placeholder="例如：1875222156@qq.com"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -123,7 +123,7 @@
           },
           temp: {
             tableName: '',
-            tablePreName: '',
+            tablePrefixName: '',
             author: '',
             email: '',
             packageName: '',

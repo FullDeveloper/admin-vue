@@ -141,7 +141,8 @@
         })
       },
       updateData() {
-        this.$refs['dataForm'].validate((valid) => {
+        const set = this.$refs
+        set['dataForm'].validate((valid) => {
           if (valid) {
             const tempData = Object.assign({}, this.temp)
             updateRole(tempData).then(() => {
