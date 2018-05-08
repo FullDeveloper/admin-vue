@@ -4,6 +4,8 @@ import 'normalize.css/normalize.css'// A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import '@riophae/vue-treeselect/dist/vue-treeselect.min.css'
+
 import locale from 'element-ui/lib/locale/lang/zh-CN'
 import '@/styles/index.scss' // global css
 // import i18n from './lang' // Internationalization

@@ -48,12 +48,25 @@ service.interceptors.response.use(
           })
         })
       }
+      // token已经失效
+      if (res.status === 40101) {
+        MessageBox.confirm('token已经失效', '确定登出', {
+          confirmButtonText: '重新登录',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          store.dispatch('FedLogOut').then(() => {
+            location.reload()// 为了重新实例化vue-router对象 避免bug
+          })
+        })
+      }
       return Promise.reject('error')
     } else {
       return response.data
     }
   },
   error => {
+    console.log(error)
     Message({
       message: error.response.data.message,
       type: 'error',

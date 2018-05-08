@@ -59,16 +59,16 @@ export const constantRouterMap = [
         meta: { title: '角色管理', icon: 'tree' }
       },
       {
-        path: 'tree',
-        name: '部门管理',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '部门管理', icon: 'tree' }
+        path: 'menu',
+        name: '菜单管理',
+        component: () => import('@/views/system/menu/MenuList'),
+        meta: { title: '菜单管理', icon: 'tree' }
       },
       {
-        path: 'tree',
-        name: '菜单管理',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '菜单管理', icon: 'tree' }
+        path: 'department',
+        name: '部门管理',
+        component: () => import('@/views/system/department/DepartmentList'),
+        meta: { title: '部门管理', icon: 'tree' }
       },
       {
         path: 'tree',
@@ -101,9 +101,9 @@ export const constantRouterMap = [
         meta: { title: '通知管理', icon: 'tree' }
       },
       {
-        path: 'tree',
+        path: 'generator',
         name: '代码生成',
-        component: () => import('@/views/tree/index'),
+        component: () => import('@/views/system/generator/GeneratorList'),
         meta: { title: '代码生成', icon: 'tree' }
       }
     ]

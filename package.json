@@ -13,6 +13,7 @@
     "test": "npm run lint"
   },
   "dependencies": {
+    "@riophae/vue-treeselect": "0.0.24",
     "axios": "0.17.1",
     "element-ui": "2.3.4",
     "js-cookie": "2.2.0",
