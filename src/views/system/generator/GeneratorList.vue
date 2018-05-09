@@ -162,15 +162,7 @@
             tableName.push(this.multipleSelection[i].tableName)
           }
           this.temp.tableName = tableName
-          generatorCode(this.temp).then(response => {
-            this.dialogFormVisible = false
-            this.$notify({
-              title: '成功',
-              message: '代码生成成功',
-              type: 'success',
-              duration: 2000
-            })
-          })
+          location.href = process.env.BASE_API + '/admin/generator/code?requestJson=' + encodeURIComponent(JSON.stringify(this.temp));
         },
         handleSelectionChange(val) {
           console.log('val==>', val)
