@@ -71,15 +71,15 @@ export const constantRouterMap = [
         meta: { title: '部门管理', icon: 'tree' }
       },
       {
-        path: 'tree',
+        path: 'dict',
         name: '字典管理',
-        component: () => import('@/views/tree/index'),
+        component: () => import('@/views/system/dict'),
         meta: { title: '字典管理', icon: 'tree' }
       },
       {
-        path: 'tree',
+        path: 'operationLog',
         name: '业务日志',
-        component: () => import('@/views/tree/index'),
+        component: () => import('@/views/system/operationLog'),
         meta: { title: '业务日志', icon: 'tree' }
       },
       {
@@ -95,9 +95,9 @@ export const constantRouterMap = [
         meta: { title: '监控管理', icon: 'tree' }
       },
       {
-        path: 'tree',
+        path: 'notice',
         name: '通知管理',
-        component: () => import('@/views/tree/index'),
+        component: () => import('@/views/system/notice'),
         meta: { title: '通知管理', icon: 'tree' }
       },
       {

@@ -14,48 +14,43 @@
                   element-loading-text="loading...."
                   border fit highlight-current-row style="width: 100%">
 
-                    <el-table-column align="center" label="Id" width="65">
+                    <el-table-column align="center" label="Id" width="100px">
                         <template slot-scope="scope">
                             <span>{{scope.row.id}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column  align="center" label="部门简称">
+                    <el-table-column  align="center" label="通知标题">
                         <template slot-scope="scope">
-                            <span>{{scope.row.simpleName}}</span>
+                            <span>{{scope.row.title}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column  align="center" label="部门全称">
+                    <el-table-column  align="center" label="通知类型">
                         <template slot-scope="scope">
-                            <span>{{scope.row.fullName}}</span>
+                            <span>{{scope.row.type}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column  align="center" label="部门提示">
+                    <el-table-column  align="center" label="通知内容">
                         <template slot-scope="scope">
-                            <span>{{scope.row.tips}}</span>
+                            <span>{{scope.row.content}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column  align="center" label="版本信息">
+                    <el-table-column  align="center" label="创建时间">
                         <template slot-scope="scope">
-                            <span>{{scope.row.version}}</span>
+                            <span>{{scope.row.createTime}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column  align="center" label="父级编号">
+                    <el-table-column  align="center" label="创建人">
                         <template slot-scope="scope">
-                            <span>{{scope.row.pid}}</span>
-                        </template>
-                    </el-table-column>
-                    <el-table-column  align="center" label="排序字段">
-                        <template slot-scope="scope">
-                            <span>{{scope.row.sort}}</span>
+                            <span>{{scope.row.createUser}}</span>
                         </template>
                     </el-table-column>
 
-                  <el-table-column align="center" label="操作" width="148" fixed="right" class-name="small-padding fixed-width">
-                      <template slot-scope="scope">
-                          <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
-                          <el-button type="danger"  size="mini" @click="handleDelete(scope.row)">删除</el-button>
-                      </template>
-                  </el-table-column>
+            <el-table-column align="center" label="操作" width="148" class-name="small-padding fixed-width">
+                <template slot-scope="scope">
+                    <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
+                    <el-button type="danger"  size="mini" @click="handleDelete(scope.row)">删除</el-button>
+                </template>
+            </el-table-column>
 
         </el-table>
 
@@ -69,23 +64,20 @@
         <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
             <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="80px"
                      style='margin-left:50px;'>
-                <el-form-item label="部门简称" prop="simpleName">
-                    <el-input v-model="temp.simpleName" placeholder="请输入部门简称"></el-input>
+                <el-form-item label="通知标题" prop="title">
+                    <el-input v-model="temp.title" placeholder="请输入通知标题"></el-input>
                 </el-form-item>
-                <el-form-item label="部门全称" prop="fullName">
-                    <el-input v-model="temp.fullName" placeholder="请输入部门全称"></el-input>
+                <el-form-item label="通知类型" prop="type">
+                    <el-input v-model="temp.type" placeholder="请输入通知类型"></el-input>
                 </el-form-item>
-                <el-form-item label="部门提示" prop="tips">
-                    <el-input v-model="temp.tips" placeholder="请输入部门提示"></el-input>
+                <el-form-item label="通知内容" prop="content">
+                    <el-input v-model="temp.content" placeholder="请输入通知内容"></el-input>
                 </el-form-item>
-                <el-form-item label="版本信息" prop="version">
-                    <el-input v-model="temp.version" placeholder="请输入版本信息"></el-input>
+                <el-form-item label="创建时间" prop="createTime">
+                    <el-input v-model="temp.createTime" placeholder="请输入创建时间"></el-input>
                 </el-form-item>
-                <el-form-item label="父级编号" prop="pid">
-                    <el-input v-model="temp.pid" placeholder="请输入父级编号"></el-input>
-                </el-form-item>
-                <el-form-item label="排序字段" prop="sort">
-                    <el-input v-model="temp.sort" placeholder="请输入排序字段"></el-input>
+                <el-form-item label="创建人" prop="createUser">
+                    <el-input v-model="temp.createUser" placeholder="请输入创建人"></el-input>
                 </el-form-item>
             </el-form>
 
@@ -100,31 +92,28 @@
 </template>
 
 <script>
-    import { fetchList, delObj, putObj, addObj } from '@/api/admin/dept'
+    import { fetchList, delObj, putObj, addObj } from '@/api/admin/notice'
     import waves from '@/directive/waves' // 水波纹指令
     export default {
-      name: 'dept',
+      name: 'notice',
       directives: {
         waves
       },
       data() {
         return {
           temp: {
-            id: undefined,
-            simpleName: undefined,
-            fullName: undefined,
-            tips: undefined,
-            version: undefined,
-            pid: undefined,
-            sort: undefined
+            title: undefined,
+            type: undefined,
+            content: undefined,
+            createTime: undefined,
+            createUser: undefined
           },
           rules: {
-            simpleName: [{ required: true, message: '请输入部门简称', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }],
-            fullName: [{ required: true, message: '请输入部门全称', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }],
-            tips: [{ required: true, message: '请输入部门提示', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }],
-            version: [{ required: true, message: '请输入版本信息', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }],
-            pid: [{ required: true, message: '请输入父级编号', trigger: 'blur' }],
-            sort: [{ required: true, message: '请输入排序字段', trigger: 'blur' }]
+            title: [{ required: true, message: '请输入通知标题', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }],
+            type: [{ required: true, message: '请输入通知类型', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }],
+            content: [{ required: true, message: '请输入通知内容', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }],
+            createTime: [{ required: true, message: '请输入创建时间', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }],
+            createUser: [{ required: true, message: '请输入创建人', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }]
           },
           list: null,
           total: null,
@@ -179,8 +168,6 @@
         },
         handleUpdate(row) {
           this.temp = Object.assign({}, row)
-          this.temp.pid = row.pid + ''
-          this.temp.sort = row.sort + ''
           this.dialogStatus = 'update'
           this.dialogFormVisible = true
           this.$nextTick(() => {
@@ -226,13 +213,11 @@
         },
         resetTemp() {
           this.temp = {
-            id: undefined,
-            simpleName: undefined,
-            fullName: undefined,
-            tips: undefined,
-            version: undefined,
-            pid: undefined,
-            sort: undefined
+            title: undefined,
+            type: undefined,
+            content: undefined,
+            createTime: undefined,
+            createUser: undefined
           }
         },
         getList() {

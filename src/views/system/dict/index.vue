@@ -14,29 +14,19 @@
                   element-loading-text="loading...."
                   border fit highlight-current-row style="width: 100%">
 
-                    <el-table-column align="center" label="Id" width="65">
+                    <el-table-column align="center" label="Id" width="120px">
                         <template slot-scope="scope">
                             <span>{{scope.row.id}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column  align="center" label="部门简称">
+                    <el-table-column  align="center" label="字典名称">
                         <template slot-scope="scope">
-                            <span>{{scope.row.simpleName}}</span>
+                            <span>{{scope.row.name}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column  align="center" label="部门全称">
-                        <template slot-scope="scope">
-                            <span>{{scope.row.fullName}}</span>
-                        </template>
-                    </el-table-column>
-                    <el-table-column  align="center" label="部门提示">
+                    <el-table-column  align="center" label="提示信息">
                         <template slot-scope="scope">
                             <span>{{scope.row.tips}}</span>
-                        </template>
-                    </el-table-column>
-                    <el-table-column  align="center" label="版本信息">
-                        <template slot-scope="scope">
-                            <span>{{scope.row.version}}</span>
                         </template>
                     </el-table-column>
                     <el-table-column  align="center" label="父级编号">
@@ -50,12 +40,12 @@
                         </template>
                     </el-table-column>
 
-                  <el-table-column align="center" label="操作" width="148" fixed="right" class-name="small-padding fixed-width">
-                      <template slot-scope="scope">
-                          <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
-                          <el-button type="danger"  size="mini" @click="handleDelete(scope.row)">删除</el-button>
-                      </template>
-                  </el-table-column>
+            <el-table-column align="center" label="操作" width="148" class-name="small-padding fixed-width">
+                <template slot-scope="scope">
+                    <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
+                    <el-button type="danger"  size="mini" @click="handleDelete(scope.row)">删除</el-button>
+                </template>
+            </el-table-column>
 
         </el-table>
 
@@ -69,17 +59,11 @@
         <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
             <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="80px"
                      style='margin-left:50px;'>
-                <el-form-item label="部门简称" prop="simpleName">
-                    <el-input v-model="temp.simpleName" placeholder="请输入部门简称"></el-input>
+                <el-form-item label="字典名称" prop="name">
+                    <el-input v-model="temp.name" placeholder="请输入字典名称"></el-input>
                 </el-form-item>
-                <el-form-item label="部门全称" prop="fullName">
-                    <el-input v-model="temp.fullName" placeholder="请输入部门全称"></el-input>
-                </el-form-item>
-                <el-form-item label="部门提示" prop="tips">
-                    <el-input v-model="temp.tips" placeholder="请输入部门提示"></el-input>
-                </el-form-item>
-                <el-form-item label="版本信息" prop="version">
-                    <el-input v-model="temp.version" placeholder="请输入版本信息"></el-input>
+                <el-form-item label="提示信息" prop="tips">
+                    <el-input v-model="temp.tips" placeholder="请输入提示信息"></el-input>
                 </el-form-item>
                 <el-form-item label="父级编号" prop="pid">
                     <el-input v-model="temp.pid" placeholder="请输入父级编号"></el-input>
@@ -100,29 +84,24 @@
 </template>
 
 <script>
-    import { fetchList, delObj, putObj, addObj } from '@/api/admin/dept'
+    import { fetchList, delObj, putObj, addObj } from '@/api/admin/dict'
     import waves from '@/directive/waves' // 水波纹指令
     export default {
-      name: 'dept',
+      name: 'dict',
       directives: {
         waves
       },
       data() {
         return {
           temp: {
-            id: undefined,
-            simpleName: undefined,
-            fullName: undefined,
+            name: undefined,
             tips: undefined,
-            version: undefined,
             pid: undefined,
             sort: undefined
           },
           rules: {
-            simpleName: [{ required: true, message: '请输入部门简称', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }],
-            fullName: [{ required: true, message: '请输入部门全称', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }],
-            tips: [{ required: true, message: '请输入部门提示', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }],
-            version: [{ required: true, message: '请输入版本信息', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }],
+            name: [{ required: true, message: '请输入字典名称', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }],
+            tips: [{ required: true, message: '请输入提示信息', trigger: 'blur' }, { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }],
             pid: [{ required: true, message: '请输入父级编号', trigger: 'blur' }],
             sort: [{ required: true, message: '请输入排序字段', trigger: 'blur' }]
           },
@@ -179,8 +158,6 @@
         },
         handleUpdate(row) {
           this.temp = Object.assign({}, row)
-          this.temp.pid = row.pid + ''
-          this.temp.sort = row.sort + ''
           this.dialogStatus = 'update'
           this.dialogFormVisible = true
           this.$nextTick(() => {
@@ -226,11 +203,8 @@
         },
         resetTemp() {
           this.temp = {
-            id: undefined,
-            simpleName: undefined,
-            fullName: undefined,
+            name: undefined,
             tips: undefined,
-            version: undefined,
             pid: undefined,
             sort: undefined
           }

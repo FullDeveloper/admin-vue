@@ -103,7 +103,7 @@
 </template>
 
 <script>
-    import { fetchTableList, generatorCode } from '@/api/generator'
+    import { fetchTableList } from '@/api/generator'
     import waves from '@/directive/waves' // 水波纹指令
     export default {
       name: 'GeneratorList',
@@ -162,7 +162,7 @@
             tableName.push(this.multipleSelection[i].tableName)
           }
           this.temp.tableName = tableName
-          location.href = process.env.BASE_API + '/admin/generator/code?requestJson=' + encodeURIComponent(JSON.stringify(this.temp));
+          location.href = process.env.BASE_API + '/admin/generator/code?requestJson=' + encodeURIComponent(JSON.stringify(this.temp))
         },
         handleSelectionChange(val) {
           console.log('val==>', val)
