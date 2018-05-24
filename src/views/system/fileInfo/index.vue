@@ -180,7 +180,7 @@
 </template>
 
 <script>
-    import { fetchList, getObj, delObj, putObj, addObj } from '@/api/admin/fileInfo'
+    import { fetchList, delObj, putObj, addObj } from '@/api/admin/fileInfo'
     import waves from '@/directive/waves' // 水波纹指令
     export default {
       name: 'fileInfo',

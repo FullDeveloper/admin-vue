@@ -7,6 +7,19 @@ export function fetchList(params) {
     params
   })
 }
+export function getAuthorizedTree(roleId) {
+  return request({
+    url: '/admin/role/getAuthorizedTree?roleId=' + roleId,
+    method: 'get'
+  })
+}
+
+export function authorizedByRoleId(roleId, menuIds) {
+  return request({
+    url: '/admin/role/authorizedByRoleId?roleId=' + roleId + '&menuIds=' + menuIds,
+    method: 'get'
+  })
+}
 
 export function createRole(data) {
   return request({

@@ -8,11 +8,19 @@
       <el-button class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加</el-button>
       <!--<el-button class="filter-item" type="primary" v-waves icon="el-icon-download">导出</el-button>-->
     </div>
+    <div class="filter-container">
+      <el-button class="filter-item" type="warning" v-waves icon="el-icon-circle-plus" @click="handleAuthorization">角色授权</el-button>
+    </div>
 
     <!--表格主体-->
     <el-table key='tableKey' :data="list" align="center" label="序号" width="65" v-loading="listLoading"
               element-loading-text="loading...."
+              @selection-change="handleSelectionChange"
               border fit highlight-current-row style="width: 100%">
+      <el-table-column
+        type="selection"
+        width="55">
+      </el-table-column>
       <el-table-column align="center"  label="角色名称">
         <template slot-scope="scope">
           <span>{{scope.row.name}}</span>
@@ -64,11 +72,31 @@
       </div>
     </el-dialog>
 
+    <el-dialog title="角色授权" width="300px" :visible.sync="authorizationVisible">
+
+      <el-tree
+        :data="authorizedTree"
+        show-checkbox
+        default-expand-all
+        :default-checked-keys="defaultValue"
+        node-key="id"
+        ref="tree"
+        highlight-current
+        :props="defaultProps">
+      </el-tree>
+
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="authorizationVisible = false">取消</el-button>
+        <el-button type="primary" @click="handleAuthorizedSubmit">确认</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
-  import { fetchList, createRole, updateRole, deleteRole } from '@/api/role'
+  import { fetchList, createRole, updateRole, deleteRole, getAuthorizedTree, authorizedByRoleId } from '@/api/role'
   import waves from '@/directive/waves' // 水波纹指令
 
   export default {
@@ -78,6 +106,14 @@
     },
     data() {
       return {
+        multipleSelection: null,
+        roleId: null,
+        defaultValue: [],
+        authorizedTree: [],
+        defaultProps: {
+          children: 'children',
+          label: 'label'
+        },
         listLoading: false,
         dialogStatus: 'create',
         textMap: {
@@ -85,6 +121,7 @@
           create: '新增'
         },
         dialogFormVisible: false,
+        authorizationVisible: false,
         listQuery: {
           name: '',
           page: 1,
@@ -112,6 +149,44 @@
 
     },
     methods: {
+      handleAuthorizedSubmit() {
+        const authorizedList = this.$refs.tree.getCheckedNodes()
+        if (authorizedList.length < 1) {
+          this.$message({
+            type: 'warning',
+            message: '请选择菜单!'
+          })
+          return
+        }
+        let ids = ''
+        console.log(authorizedList)
+        for (let i = 0; i < authorizedList.length; i++) {
+          if (i > 0) {
+            ids += ','
+          }
+          ids += authorizedList[i].id
+        }
+        authorizedByRoleId(this.roleId, ids).then(() => {
+          this.getList()
+          this.authorizationVisible = false
+          this.$message({
+            type: 'success',
+            message: '授权成功!'
+          })
+        })
+      },
+      handleAuthorization() {
+        getAuthorizedTree(this.roleId).then(response => {
+          this.authorizedTree = response.data.authorizedTree
+          this.defaultValue = response.data.defaultValue
+          this.authorizationVisible = true
+        })
+      },
+      handleSelectionChange(val) {
+        console.log('val=>', val)
+        this.roleId = val[0].id
+        this.multipleSelection = val
+      },
       getList() {
         this.listLoading = true
         fetchList(this.listQuery).then(response => {
