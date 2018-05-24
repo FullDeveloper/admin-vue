@@ -176,6 +176,13 @@
         })
       },
       handleAuthorization() {
+        if (!this.roleId) {
+          this.$message({
+            type: 'warning',
+            message: '请选择角色!'
+          })
+          return
+        }
         getAuthorizedTree(this.roleId).then(response => {
           this.authorizedTree = response.data.authorizedTree
           this.defaultValue = response.data.defaultValue
@@ -184,6 +191,13 @@
       },
       handleSelectionChange(val) {
         console.log('val=>', val)
+        if (val.length > 1) {
+          this.$message({
+            type: 'warning',
+            message: '只支持单个角色授权!'
+          })
+          return
+        }
         this.roleId = val[0].id
         this.multipleSelection = val
       },
