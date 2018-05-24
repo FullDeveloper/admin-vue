@@ -70,7 +70,10 @@ service.interceptors.response.use(
     Message({
       message: error.response.data.message,
       type: 'error',
-      duration: 5 * 1000
+      duration: 3 * 1000,
+      onClose: function() {
+        window.location.reload()
+      }
     })
     return Promise.reject(error)
   }
