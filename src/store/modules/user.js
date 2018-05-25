@@ -21,6 +21,9 @@ const user = {
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
+    },
+    SET_USERNAME: (state, username) => {
+      state.username = username
     }
   },
 
@@ -35,6 +38,7 @@ const user = {
           console.log('data token', data.token)
           setToken(data.token)
           commit('SET_TOKEN', data.token)
+          commit('SET_USERNAME', username)
           resolve()
         }).catch(error => {
           reject(error)
@@ -50,6 +54,7 @@ const user = {
           commit('SET_ROLES', data.roles)
           commit('SET_NAME', data.name)
           commit('SET_AVATAR', data.avatar)
+          commit('SET_USERNAME', data.username)
           resolve(response)
         }).catch(error => {
           reject(error)

@@ -22,6 +22,7 @@ const _import = require('./_import_' + process.env.NODE_ENV)
     icon: 'svg-name'             the icon show in the sidebar,
   }
 **/
+
 export const constantRouterMap = [
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
   { path: '/404', component: () => import('@/views/404'), hidden: true },

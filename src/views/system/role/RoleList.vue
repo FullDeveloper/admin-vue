@@ -191,6 +191,12 @@
       },
       handleSelectionChange(val) {
         console.log('val=>', val)
+
+        if (val.length < 1) {
+          this.roleId = ''
+          return
+        }
+
         if (val.length > 1) {
           this.$message({
             type: 'warning',

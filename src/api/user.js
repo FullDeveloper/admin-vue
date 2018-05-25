@@ -8,6 +8,12 @@ export function fetchList(params) {
   })
 }
 
+export function getUserPermissions() {
+  return request({
+    url: '/admin/api/user/un/'
+  })
+}
+
 export function createUser(data) {
   return request({
     url: '/admin/user/newUserInsert',
