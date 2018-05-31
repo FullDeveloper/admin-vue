@@ -6,7 +6,8 @@ const user = {
     token: getToken(),
     name: '',
     avatar: '',
-    roles: ['admin']
+    roles: ['admin'],
+    username: ''
   },
 
   mutations: {

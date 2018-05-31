@@ -72,7 +72,7 @@ service.interceptors.response.use(
       type: 'error',
       duration: 3 * 1000,
       onClose: function() {
-        window.location.reload()
+        // window.location.reload()
       }
     })
     return Promise.reject(error)

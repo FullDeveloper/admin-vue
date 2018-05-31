@@ -8,9 +8,9 @@ export function fetchList(params) {
   })
 }
 
-export function getUserPermissions() {
+export function getUserPermissions(username) {
   return request({
-    url: '/admin/api/user/un/'
+    url: '/admin/user/un/' + username + '/resources'
   })
 }
 

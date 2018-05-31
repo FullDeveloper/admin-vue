@@ -230,6 +230,7 @@
         this.temp.level = row.level + ''
         this.temp.type = row.type + ''
         this.temp.sort = row.sort + ''
+        this.temp.pcode = row.pcode + ''
         this.temp.status = row.status + ''
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
@@ -242,7 +243,9 @@
           if (valid) {
             this.temp.pcode = this.temp.pcode == null || '' ? '0' : this.temp.pcode
             const tempData = Object.assign({}, this.temp)
+            console.log('tempData=>', tempData)
             delete tempData.children
+            delete tempData.parent
             updateMenu(tempData).then(() => {
               this.getList()
               this.dialogFormVisible = false
